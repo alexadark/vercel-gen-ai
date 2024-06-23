@@ -10,6 +10,11 @@ export const fetchRecipes = async (query: string) => {
   return data.hits;
 };
 export const fetchQuotes = async (category: string) => {
+  if (!QUOTES_API_KEY) {
+    console.error("QUOTES_API_KEY is not defined");
+    return [];
+  }
+
   const response = await fetch(
     `https://api.api-ninjas.com/v1/quotes?category=${category}`,
     {
