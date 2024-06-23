@@ -4,6 +4,7 @@ import { useUIState } from "ai/rsc";
 import { useEffect, useRef } from "react";
 
 export function Messages() {
+  // Retrieve the current conversation state from the UI state management.
   const [conversation] = useUIState();
   const ref = useRef<HTMLDivElement>(null);
 

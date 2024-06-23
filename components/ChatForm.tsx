@@ -4,20 +4,25 @@ import { useActions, useUIState } from "ai/rsc";
 import { generateId } from "ai";
 
 export const ChatForm = () => {
-  const { continueConversation } = useActions();
+  const { continueConversation } = useActions(); //we get the continueConversation from the server
   const [, setConversation] = useUIState();
   const [input, setInput] = useState("");
 
   return (
     <form
+      // updates the conversation state by appending a new message object.
+      // The message object includes a unique ID, specifies the role as 'user', and uses the current input value for display.
       action={async () => {
-        setConversation((c: any[]) => [
-          ...c,
+        setConversation((currentConversation: any[]) => [
+          ...currentConversation,
           { id: generateId(), role: "user", display: input },
         ]);
         setInput("");
+        // calls the continueConversation function with the current input value.
+        // This function is responsible for continuing the conversation by processing the user's input and generating a response.
         const message = await continueConversation(input);
 
+        // updates the conversation state by appending the new message object.
         setConversation((currentConversation: any[]) => [
           ...currentConversation,
           message,
