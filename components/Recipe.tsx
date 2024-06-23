@@ -1,12 +1,14 @@
 import React from "react";
 
 export const Recipe = ({ recipe }: { recipe: any }) => {
-  console.log(recipe);
+  // console.log(recipe);
 
   return (
     <div className="prose">
-      <h3>{recipe.recipe.label}</h3>
-      <img src={recipe.recipe.image} alt={recipe.recipe.label} />
+      <a href={recipe.recipe.url} target="_blank">
+        <h3>{recipe.recipe.label}</h3>
+        <img src={recipe.recipe.image} alt={recipe.recipe.label} />
+      </a>
       <h3>Ingredients</h3>
       <ul>
         {recipe.recipe.ingredients.map((ingredient: any, index: any) => (

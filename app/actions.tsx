@@ -4,7 +4,7 @@ import { openai } from "@ai-sdk/openai";
 import { ReactNode } from "react";
 import { z } from "zod";
 import { generateId } from "ai";
-import { fetchRecipes } from "./lib/helperFunctions";
+import { fetchRecipes, fetchQuotes } from "./lib/helperFunctions";
 import { Recipe } from "@/components/Recipe";
 
 export interface ServerMessage {
@@ -44,6 +44,21 @@ export const AI = createAI({
                   {recipes?.map((recipe: any, index: any) => (
                     <Recipe key={index} recipe={recipe} />
                   ))}
+                </div>
+              );
+            },
+          },
+          getQuotes: {
+            description: "Get quotes from a query",
+            parameters: z.object({
+              query: z.string().describe("The query to get quotes"),
+            }),
+            generate: async function ({ query }: { query: string }) {
+              const quotes = await fetchQuotes(query);
+              return (
+                <div className="text-center bg-slate-900 text-white p-4 rounded-md">
+                  <p>{quotes[0]?.quote}</p>
+                  <p className="font-bold not-italic">{quotes[0]?.author}</p>
                 </div>
               );
             },
