@@ -1,6 +1,8 @@
 import React from "react";
 
 export const Recipe = ({ recipe }: { recipe: any }) => {
+  console.log(recipe);
+
   return (
     <div className="prose">
       <h3>{recipe.recipe.label}</h3>
