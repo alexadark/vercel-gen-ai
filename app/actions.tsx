@@ -1,10 +1,11 @@
-//@ts-nocheck
 "use server";
 import { createAI, getMutableAIState, streamUI } from "ai/rsc";
 import { openai } from "@ai-sdk/openai";
 import { ReactNode } from "react";
 import { z } from "zod";
 import { generateId } from "ai";
+import { fetchRecipes } from "./lib/helperFunctions";
+import { Recipe } from "@/components/Recipe";
 
 export interface ServerMessage {
   role: "user" | "assistant";
@@ -16,17 +17,6 @@ export interface ClientMessage {
   role: "user" | "assistant";
   display: ReactNode;
 }
-
-const APP_ID = process.env.EDAMAM_APP_ID;
-const APP_KEY = process.env.EDAMAM_API_KEY;
-
-const fetchRecipes = async (query: string) => {
-  const response = await fetch(
-    `https://api.edamam.com/api/recipes/v2?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}&type=public`
-  );
-  const data = await response.json();
-  return data.hits;
-};
 
 export const AI = createAI({
   actions: {
@@ -50,22 +40,9 @@ export const AI = createAI({
             generate: async function ({ query }: { query: string }) {
               const recipes = await fetchRecipes(query);
               return (
-                <div>
-                  {" "}
-                  {recipes?.map((recipe, index) => (
-                    <div key={index}>
-                      <h3>{recipe.recipe.label}</h3>
-                      <img
-                        src={recipe.recipe.image}
-                        alt={recipe.recipe.label}
-                      />
-                      <h3>Ingredients</h3>
-                      <ul>
-                        {recipe.recipe.ingredients.map((ingredient, index) => (
-                          <li key={index}>{ingredient.text}</li>
-                        ))}
-                      </ul>
-                    </div>
+                <div className="grid grid-cols-3 gap-4">
+                  {recipes?.map((recipe: any, index: any) => (
+                    <Recipe key={index} recipe={recipe} />
                   ))}
                 </div>
               );
