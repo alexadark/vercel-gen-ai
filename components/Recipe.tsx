@@ -1,8 +1,6 @@
 import React from "react";
 
 export const Recipe = ({ recipe }: { recipe: any }) => {
-  // console.log(recipe);
-
   return (
     <div className="prose">
       <a href={recipe.recipe.url} target="_blank">

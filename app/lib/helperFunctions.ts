@@ -1,6 +1,6 @@
 const APP_ID = process.env.EDAMAM_APP_ID;
 const APP_KEY = process.env.EDAMAM_API_KEY;
-const QUOTES_API_KEY = process.env.QUOTES_API_KEY;
+const NINJAS_API_KEY = process.env.NINJAS_API_KEY;
 
 export const fetchRecipes = async (query: string) => {
   const response = await fetch(
@@ -10,8 +10,8 @@ export const fetchRecipes = async (query: string) => {
   return data.hits;
 };
 export const fetchQuotes = async (category: string) => {
-  if (!QUOTES_API_KEY) {
-    console.error("QUOTES_API_KEY is not defined");
+  if (!NINJAS_API_KEY) {
+    console.error("NINJAS_API_KEY is not defined");
     return [];
   }
 
@@ -19,12 +19,12 @@ export const fetchQuotes = async (category: string) => {
     `https://api.api-ninjas.com/v1/quotes?category=${category}`,
     {
       headers: {
-        "X-Api-Key": QUOTES_API_KEY,
+        "X-Api-Key": NINJAS_API_KEY,
       },
     }
   );
 
   const data = await response.json();
-  console.log("quotes data", data);
+
   return data;
 };
