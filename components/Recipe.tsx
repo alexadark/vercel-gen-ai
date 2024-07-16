@@ -71,7 +71,7 @@ export const Recipe = ({ recipe }: { recipe: any }) => {
   );
 };
 
-function ChevronDownIcon(props) {
+function ChevronDownIcon(props: any) {
   return (
     <svg
       {...props}
