@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useUIState } from "ai/rsc";
-import { useEffect, useRef } from "react";
+import { useUIState } from 'ai/rsc';
+import { useEffect, useRef } from 'react';
 
 export function Messages() {
   // Retrieve the current conversation state from the UI state management.
@@ -21,7 +21,7 @@ export function Messages() {
       {conversation.map((message: any) => (
         <div key={message.id} className="grid gap-2">
           <span className="capitalize text-sm font-bold">{message.role}</span>
-          <div className="bg-gray-200 text-black p-4 rounded">
+          <div className="bg-muted/40 text-black p-4 rounded">
             {message.display}
           </div>
         </div>

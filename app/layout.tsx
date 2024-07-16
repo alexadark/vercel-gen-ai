@@ -1,11 +1,13 @@
-import "./globals.css";
-import { AI } from "./actions";
-import { Inter as FontSans } from "next/font/google";
-import { cn } from "@/lib/utils";
+import './globals.css';
+import { AI } from './actions';
+import { Inter as FontSans, Space_Mono as FontBody } from 'next/font/google';
+import { cn } from '@/lib/utils';
 
-const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
+const fontSans = FontBody({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  weight: ['400', '700'],
+  display: 'swap',
 });
 
 export default function RootLayout({
@@ -18,7 +20,7 @@ export default function RootLayout({
       <html lang="en" className="dark">
         <body
           className={cn(
-            "min-h-screen bg-background font-sans antialiased",
+            'min-h-screen bg-background font-sans antialiased',
             fontSans.variable
           )}
         >

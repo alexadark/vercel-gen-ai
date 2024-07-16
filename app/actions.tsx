@@ -1,10 +1,10 @@
-"use server";
-import { createAI, getMutableAIState, streamUI } from "ai/rsc";
-import { openai } from "@ai-sdk/openai";
-import { z } from "zod";
-import { generateId } from "ai";
-import { fetchRecipes, fetchQuotes } from "./lib/helperFunctions";
-import { Recipe } from "@/components/Recipe";
+'use server';
+import { createAI, getMutableAIState, streamUI } from 'ai/rsc';
+import { openai } from '@ai-sdk/openai';
+import { z } from 'zod';
+import { generateId } from 'ai';
+import { fetchRecipes, fetchQuotes } from './lib/helperFunctions';
+import { Recipe } from '@/components/Recipe';
 
 // Initializes and exports an AI instance using the createAI function
 export const AI = createAI({
@@ -18,14 +18,14 @@ export const AI = createAI({
 
       // Stream the user interface with the given parameters and model
       const result = await streamUI({
-        model: openai("gpt-3.5-turbo"),
+        model: openai('gpt-3.5-turbo'),
         // Append the new user message to the existing conversation history.
-        messages: [...history.get(), { role: "user", content: input }],
+        messages: [...history.get(), { role: 'user', content: input }],
         text: ({ done, content }) => {
           // Check if the conversation is marked as done
           if (done) {
             // If done, update the history to include this final assistant message
-            history.done([...history.get(), { role: "assistant", content }]);
+            history.done([...history.get(), { role: 'assistant', content }]);
           }
           // Render the content in a div element
           return <div>{content}</div>;
@@ -34,16 +34,16 @@ export const AI = createAI({
         tools: {
           // Define a tool for retrieving recipes based on a query
           getRecipes: {
-            description: "Get recipes by query",
+            description: 'Get recipes by query',
             parameters: z.object({
-              query: z.string().describe("The query to get recipes"),
+              query: z.string().describe('The query to get recipes'),
             }),
             generate: async function ({ query }: { query: string }) {
               // Call the fetchRecipes function with the provided query to retrieve recipes
               const recipes = await fetchRecipes(query);
               // Render the fetched recipes using the Recipe component in a grid layout
               return (
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {recipes?.map((recipe: any, index: any) => (
                     <Recipe key={index} recipe={recipe} />
                   ))}
@@ -53,9 +53,9 @@ export const AI = createAI({
           },
           // Define a tool for retrieving quotes based on a query
           getQuotes: {
-            description: "Get quotes from a query",
+            description: 'Get quotes from a query',
             parameters: z.object({
-              query: z.string().describe("The query to get quotes"),
+              query: z.string().describe('The query to get quotes'),
             }),
             generate: async function ({ query }: { query: string }) {
               // Call the fetchQuotes function with the provided query to retrieve quotes
@@ -75,7 +75,7 @@ export const AI = createAI({
       // Return the result of the conversation as an assistant message
       return {
         id: generateId(),
-        role: "assistant",
+        role: 'assistant',
         display: result.value,
       };
     },
