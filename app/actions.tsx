@@ -62,7 +62,7 @@ export const AI = createAI({
               const quotes = await fetchQuotes(query);
               // Render the first quote and author in a styled div element
               return (
-                <div className="text-center bg-slate-900 text-white p-4 rounded-md">
+                <div className="text-center bg-gradient-to-r from-orange-900 to-orange-500 text-orange-100 p-4 rounded-md">
                   <p>{quotes[0]?.quote}</p>
                   <p className="font-bold not-italic">{quotes[0]?.author}</p>
                 </div>
