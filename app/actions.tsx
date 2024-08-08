@@ -18,7 +18,7 @@ export const AI = createAI({
 
       // Stream the user interface with the given parameters and model
       const result = await streamUI({
-        model: openai('gpt-3.5-turbo'),
+        model: openai('gpt-4o-mini'),
         // Append the new user message to the existing conversation history.
         messages: [...history.get(), { role: 'user', content: input }],
         text: ({ done, content }) => {
